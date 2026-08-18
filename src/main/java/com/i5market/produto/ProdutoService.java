@@ -3,7 +3,6 @@ package com.i5market.produto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ProdutoService {
@@ -27,6 +26,15 @@ public class ProdutoService {
             p.setDescricao(produto.getDescricao());
             p.setEstoque(produto.getEstoque());
             p.setPreco(produto.getPreco());
+            p.setStatus(produto.getStatus());
+
+            return produtoRepository.save(p);
+        }).orElseThrow(() -> new RuntimeException("Produto não encontrado!"));
+    }
+
+    public void delete(Integer id) {
+        produtoRepository.findById(id).map(p -> {
+            p.setStatus(false);
 
             return produtoRepository.save(p);
         }).orElseThrow(() -> new RuntimeException("Produto não encontrado!"));

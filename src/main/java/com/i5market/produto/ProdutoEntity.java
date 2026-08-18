@@ -26,4 +26,7 @@ public class ProdutoEntity {
 
     @Column()
     private Double estoque;
+
+    @Column(columnDefinition = "true", nullable = false)
+    private Boolean status;
 }
