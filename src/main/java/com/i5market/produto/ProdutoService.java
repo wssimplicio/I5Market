@@ -13,8 +13,10 @@ public class ProdutoService {
         this.produtoRepository = produtoRepository;
     }
 
-    public List<ProdutoEntity> getAll() {
-        return produtoRepository.findAll().stream().toList();
+    public List<ProdutoDTO> getAll() {
+        return produtoRepository.findAll().stream()
+                .map(ProdutoDTO::new)
+                .toList();
     }
 
     public ProdutoEntity create(ProdutoEntity produto) {

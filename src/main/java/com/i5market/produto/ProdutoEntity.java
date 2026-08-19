@@ -1,10 +1,14 @@
 package com.i5market.produto;
 
+import com.i5market.ean.ProdutoEanEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "produto")
 @Entity(name = "produto")
@@ -29,4 +33,7 @@ public class ProdutoEntity {
 
     @Column(columnDefinition = "true", nullable = false)
     private Boolean status;
+
+    @OneToMany(mappedBy = "produto")
+    private List<ProdutoEanEntity> ean = new ArrayList<>();
 }
