@@ -1,5 +1,7 @@
 package com.i5market.produto;
 
+import com.i5market.exceptions.DadoNaoEncontradoException;
+import com.i5market.exceptions.MessagesEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,14 +33,17 @@ public class ProdutoService {
             p.setStatus(produto.getStatus());
 
             return produtoRepository.save(p);
-        }).orElseThrow(() -> new RuntimeException("Produto não encontrado!"));
+        }).orElseThrow(() -> new DadoNaoEncontradoException(MessagesEnum.PRODUTO_NAO_ENCONTRADO.getDescricao()));
     }
 
     public void delete(Integer id) {
+        if(!produtoRepository.existsById(id)) {
+            throw new DadoNaoEncontradoException(MessagesEnum.PRODUTO_NAO_ENCONTRADO.getDescricao());
+        }
+
         produtoRepository.findById(id).map(p -> {
             p.setStatus(false);
-
             return produtoRepository.save(p);
-        }).orElseThrow(() -> new RuntimeException("Produto não encontrado!"));
+        });
     }
 }

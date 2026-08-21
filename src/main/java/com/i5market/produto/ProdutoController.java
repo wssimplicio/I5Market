@@ -48,12 +48,7 @@ public class ProdutoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        try {
             produtoService.delete(id);
             return ResponseEntity.noContent().build();
-        } catch (RuntimeException ex) {
-            return ResponseEntity.notFound().build();
-
-        }
     }
 }
